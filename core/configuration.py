@@ -246,7 +246,7 @@ class CheckpointSaver:
         # -----------------------------------------------------------------------------------------
         # Load checkpoint from file including the state_dict
         # -----------------------------------------------------------------------------------------
-        checkpoint_with_state = torch.load(filename)
+        checkpoint_with_state = torch.load(filename,map_location=torch.device('cpu'))
 
         # -----------------------------------------------------------------------------------------
         # Load filtered state dictionary

@@ -12,7 +12,7 @@ width_to_date[1224] = '2011_09_28'
 width_to_date[1238] = '2011_09_29'
 width_to_date[1226] = '2011_09_30'
 width_to_date[1241] = '2011_10_03'
-
+width_to_date[1920] = '2011_10_03'
 
 def get_date_from_width(width):
     return width_to_date[width]

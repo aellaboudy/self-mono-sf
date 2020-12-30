@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # DATASETS_HOME
-KITTI_HOME=""
+export CUDA_VISIBLE_DEVICES=""
+KITTI_HOME="/home/aellaboudy/Downloads/ship/"
 CHECKPOINT="checkpoints/full_model_kitti_ft/checkpoint_kitti_ft.ckpt"
 
 # model
@@ -13,7 +14,7 @@ Valid_Loss_Function=Eval_SceneFlow_KITTI_Test
 
 # training configuration
 SAVE_PATH="eval/monosf_ft_kitti_test"
-python ../main.py \
+python3 ../main.py \
 --batch_size=1 \
 --batch_size_val=1 \
 --checkpoint=$CHECKPOINT \

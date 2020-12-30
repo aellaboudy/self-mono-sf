@@ -17,8 +17,8 @@ class KITTI_2015_Test(data.Dataset):
 
         self._args = args
 
-        images_l_root = os.path.join(root, "data_scene_flow", "testing", "image_2_jpg")
-        images_r_root = os.path.join(root, "data_scene_flow", "testing", "image_3_jpg")
+        images_l_root = os.path.join(root, "image_2_jpg")
+        images_r_root = os.path.join(root, "image_3_jpg")
         
         ## loading image -----------------------------------
         if not os.path.isdir(images_l_root):
@@ -29,8 +29,9 @@ class KITTI_2015_Test(data.Dataset):
         # ----------------------------------------------------------
         # Construct list of indices for training/validation
         # ----------------------------------------------------------
-        num_images = 200
+        num_images = 242
         list_of_indices = range(num_images)
+        list_of_indices = list_of_indices[1:]
 
         # ----------------------------------------------------------
         # Save list of actual filenames for inputs and disp/flow
@@ -39,16 +40,18 @@ class KITTI_2015_Test(data.Dataset):
         self._image_list = []
         self._flow_list = []
         self._disp_list = []
-        img_ext = '.jpg'
+        img_ext = '.png'
 
         for ii in list_of_indices:
 
-            file_idx = '%.6d' % ii
+            file_idx_0 = '%.5d' % ii
+            file_idx_1 = '%.5d' % (ii+1)
 
-            im_l1 = os.path.join(images_l_root, file_idx + "_10" + img_ext)
-            im_l2 = os.path.join(images_l_root, file_idx + "_11" + img_ext)
-            im_r1 = os.path.join(images_r_root, file_idx + "_10" + img_ext)
-            im_r2 = os.path.join(images_r_root, file_idx + "_11" + img_ext)
+
+            im_l1 = os.path.join(images_l_root, "images" + file_idx_0 + img_ext)
+            im_l2 = os.path.join(images_l_root, "images" + file_idx_1 + img_ext)
+            im_r1 = os.path.join(images_r_root, "images" + file_idx_0 + img_ext)
+            im_r2 = os.path.join(images_r_root, "images" + file_idx_1 + img_ext)
            
 
             file_list = [im_l1, im_l2, im_r1, im_r2]
@@ -87,7 +90,7 @@ class KITTI_2015_Test(data.Dataset):
         im_r2_np = read_image_as_byte(im_r2_filename)
         
         # example filename
-        basename = os.path.basename(im_l1_filename)[:6]
+        basename = os.path.basename(im_l1_filename)[:11]
 
         # find intrinsic
         k_l1 = torch.from_numpy(self.intrinsic_dict_l[get_date_from_width(im_l1_np.shape[1])]).float()
